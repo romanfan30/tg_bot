@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.bot;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;

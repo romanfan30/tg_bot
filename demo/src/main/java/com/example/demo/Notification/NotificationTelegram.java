@@ -8,7 +8,6 @@ public class NotificationTelegram implements Notification {
 
     private final TelegramBot telegramBot;
 
-    // Передаем бота в конструктор
     public NotificationTelegram(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
     }

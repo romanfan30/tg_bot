@@ -46,6 +46,11 @@ public class TelegramBot extends TelegramLongPollingBot {
         this.emailSenderService = emailSenderService;
     }
 
+    private boolean isValidEmail(String email) {
+        return email != null && email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+    }
+
+
     @Override
     public void onUpdateReceived(Update update) {
         if (!update.hasMessage()) return;
@@ -173,6 +178,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                 if (SKIP.equals(messageText)) {
                     person.setEmail(null);
                 } else {
+                    if (!isValidEmail(messageText)) {
+                        return "❌ Некорректный email.\nВведите корректный email или нажмите 'Оставить пустым'";
+                    }
                     person.setEmail(messageText);
                 }
 
@@ -183,6 +191,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                         "Имя: " + person.getName() + "\n" +
                         "Email: " + (person.getEmail() != null ? person.getEmail() : "не указан") + "\n\n" +
                         "Теперь вы будете получать уведомления от администратора.";
+
 
             case "WAITING_NAME":
                 if (!isAdmin) {
